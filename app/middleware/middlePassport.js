@@ -48,7 +48,7 @@ passport.use(
     async function (accessToken, refreshToken, profile, done) {
       try {
         console.log(profile);
-        if (profile._json.hd == "student.tdtu.edu.vn") {
+        if (profile._json.hd == "vku.udn.vn") {
           let user = await User.findOne({ authGoogleID: profile.id });
           if (!user) {
             user = new User({
@@ -64,8 +64,7 @@ passport.use(
           return done(null, user);
         } else {
           return done(null, false, {
-            message:
-              "Chỉ chấp nhận tài khoản sinh viên trường Đại học Tôn Đức Thắng",
+            message: "Vui lòng sử dụng tài khoản VKU",
           });
         }
       } catch (error) {
