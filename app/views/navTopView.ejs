@@ -1,0 +1,42 @@
+<div class="header">
+  <div class="header__left">
+  </div>
+
+  <div class="header__middle">
+    <div class="header__option active">
+      <a href="/">
+        <span class="material-icons <%if(typeof target!='undefined'&&target=='home'){%>text-primary<%}%>">home</span>
+      </a>
+    </div>
+    <%if (user.role=='admin'){%>
+    <div class="header__option">
+      <a href="/admin">
+        <span
+          class="material-icons <%if(typeof target!='undefined'&&target=='admin'){%>text-primary<%}%>">
+          supervised_user_circle
+        </span></a>
+    </div>
+    <%}%>
+  </div>
+
+  <div class="header__right">
+    <div class="header__info">
+      <a class="navbar-brand" href="/user?id=<%=user._id%>">
+        <img class="user__avatar" src="<%=user.avatar %>" alt="R" />
+      </a>
+      <h4><%=user.name%></h4>
+    </div>
+    <a href="/inform">
+      <span class="material-icons">notifications_active</span>
+    </a>
+    <%if(user.role!='student'){%>
+    <a href="user/changeForm">
+      <span class="material-icons">change_circle</span>
+    </a>
+
+    <%}%>
+    <a class="" href="/user/logout">
+      <span class="material-icons"> logout </span>
+    </a>
+  </div>
+</div>

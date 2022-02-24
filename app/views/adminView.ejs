@@ -1,0 +1,99 @@
+<% include header %> <% include navTopView %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-tt">
+        <h2>Tạo tài khoản phòng ban</h2>
+        <form action="/user" method="post" name="dang-ky">
+          <input
+            type="text"
+            name="username"
+            placeholder="Nhập tên tài khoản (mật khẩu)"
+          />
+
+          <input type="text"  name="name" placeholder="Tên phòng Khoa" list="khoa" />
+            <datalist id="khoa">
+              <option value="CTHSSV"> Phòng Công tác học sinh sinh viên (CTHSSV)</option>
+              <option value="Phòng đại học">Phòng Đại học</option>
+              <option value="Phòng sau đại học">Phòng Sau đại học</option>
+              <option value="Phòng điện toán và máy tính">Phòng điện toán và máy tính</option>
+              <option value="Phòng khảo thí và kiểm định chất lượng">Phòng khảo thí và kiểm định chất lượng</option>
+              <option value="Phòng tài chính">Phòng tài chính</option>
+              <option value="TDT Creative Language Center">TDT Creative Language Center</option>
+              <option value="Trung tâm tin học">Trung tâm tin học</option>
+              <option value="SDTC">Trung tâm đào tạo phát triển xã hội (SDTC)</option>
+              <option value="ATEM">Trung tâm phát triển Khoa học quản lý và Ứng dụng công nghệ (ATEM)</option>
+              <option value="Trung tâm hợp tác doanh nghiệp và cựu sinh viên">Trung tâm hợp tác doanh nghiệp và cựu sinh
+                viên</option>
+              <option value="Khoa Luật">Khoa Luật</option>
+              <option value="Trung tâm ngoại ngữ - tin học – bồi dưỡng văn hóa">Trung tâm ngoại ngữ - tin học – bồi
+                dưỡng
+                văn hóa</option>
+              <option value="Viện chính sách kinh tế và kinh doanh">Viện chính sách kinh tế và kinh doanh</option>
+              <option value="Khoa Mỹ thuật công nghiệp">Khoa Mỹ thuật công nghiệp</option>
+              <option value="Khoa Điện – Điện tử">Khoa Điện – Điện tử</option>
+              <option value="Khoa Công nghệ thông tin">Khoa Công nghệ thông tin</option>
+              <option value="Khoa Quản trị kinh doanh">Khoa Quản trị kinh doanh</option>
+              <option value="Khoa Môi trường và bảo hộ lao động">Khoa Môi trường và bảo hộ lao động</option>
+              <option value="Khoa Lao động công đoàn">Khoa Lao động công đoàn</option>
+              <option value="Khoa Tài chính ngân hàng">Khoa Tài chính ngân hàng</option>
+              <option value="Khoa giáo dục quốc tế">Khoa giáo dục quốc tế</option>
+            </datalist>
+
+          <input type="submit" name="submit" value="Tạo" />
+        </form>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-tt">
+        <h2>Tạo chủ đề thông báo</h2>
+        <form action="/typeInform" method="post" name="dang-ky">
+          <input type="text" name="nameType" placeholder="Nhập hoặc chọn chủ đề" list="chude"/>
+            <datalist id="chude">
+              <option value="Điểm rèn luyện">Điểm rèn luyện</option>
+              <option value="Sự kiện">Sự kiện</option>
+              <option value="Học phí">Học phí</option>
+              <option value="Học vụ">Học vụ</option>
+              <option value="Đăng kí môn học">Đăng kí môn học</option>
+            </datalist>
+          <input type="submit" name="submit" value="Tạo" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <h2>List</h2>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Tên tài khoản</th>
+        <th>Tên khoa | phòng ban</th>
+        <th>Chủ đề</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%for(let i=0; i<listUser.length; i++) {%>
+      <tr class="table-primary">
+        <td><%=listUser[i].username%></td>
+        <td><%=listUser[i].name%></td>
+        <td>
+          <form action="/user/edit" method="post">
+              <select name="idType" class="custom-select-sm">
+                <option value=""></option>
+                  <% for(let j=0; j<listType.length; j++) {%>
+                <option <%if(typeof listUser[i].manageTopic!='undefined'&&String(listUser[i].manageTopic._id)==String(listType[j]._id)){%>selected <%}%>  value="<%=listType[j]._id%>"><%=listType[j].name%></option>
+                <%}%>
+              </select>
+              <input type="hidden" class = "messageSender__input2"value="<%=listUser[i]._id%>" name="idUser">
+              <button class="btn btn-success" type="submit">Lưu</button>
+          </form>
+        </td>
+      </tr>
+      <%}%>
+    </tbody>
+  </table>
+</div>
+
+<% include footer %>
